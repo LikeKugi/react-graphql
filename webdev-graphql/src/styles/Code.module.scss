@@ -1,0 +1,7 @@
+.code {
+  display: flex;
+  &__border {
+    border-right: 5px solid teal;
+    cursor: col-resize;
+  }
+}
