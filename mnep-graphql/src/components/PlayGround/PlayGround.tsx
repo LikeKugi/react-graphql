@@ -4,6 +4,7 @@ import styles from './PlayGround.module.scss';
 import { graphql } from 'cm6-graphql';
 import { EditorView } from '@codemirror/view';
 import { langs } from '@uiw/codemirror-extensions-langs';
+import { format } from '../../utils/formatGraphQL';
 
 
 const PlayGround = (): JSX.Element => {
@@ -30,13 +31,26 @@ const PlayGround = (): JSX.Element => {
     setJsonResponse(JSON.stringify(data, null, 2));
   };
 
+  const handlePrettify = () => {
+    setVariablesRequest(prevState => JSON.stringify(JSON.parse(prevState), null, 2))
+    setGraphRequest(prevState => format(prevState))
+    setJsonResponse(prevState => JSON.stringify(JSON.parse(prevState), null, 2))
+  }
+
+  const disableFormat = () => {
+    setGraphRequest(prevState => prevState.replace(/\\n/g, '').replace(/\s+/g, ' '))
+    setVariablesRequest(prevState => prevState.replace(/\\n/g, '').replace(/\s+/g, ' '))
+    setJsonResponse(prevState => prevState.replace(/\\n/g, '').replace(/\s+/g, ' '))
+  }
+
   return (
     <div className={styles.playground}>
 
       <div className={styles.playground__actions}>
         <button onClick={handleRequest}>Request</button>
-        <button>Prettify</button>
-        <label htmlFor={inputId}>URI for GraphQl</label> <input className={styles.playground__url}
+        <button onClick={handlePrettify}>Prettify</button>
+        <button onClick={disableFormat}>disable format</button>
+        <label htmlFor={inputId}>URI for GraphQL</label> <input className={styles.playground__url}
                                                                 id={inputId}
                                                                 type="text"
                                                                 value={uri}
@@ -61,6 +75,7 @@ const PlayGround = (): JSX.Element => {
             <h2>Variables</h2>
             <CodeMirror className={styles.playground__cm}
                         value={variablesRequest}
+                        height="100%"
                         onChange={(value) => {
                           setVariablesRequest(value);
                         }}
@@ -73,6 +88,8 @@ const PlayGround = (): JSX.Element => {
           <h2>Response</h2>
           <CodeMirror className={styles.playground__cm}
                       theme={'dark'}
+                      height="auto"
+                      maxHeight="calc(100vh - 15.3rem)"
                       value={jsonResponse}
                       extensions={[langs.json(), EditorView.lineWrapping]}
                       readOnly/>
