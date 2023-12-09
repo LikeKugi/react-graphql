@@ -1,0 +1,54 @@
+.playground {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-block-end: 2rem;
+  //max-height: 100vh;
+  overflow: hidden;
+
+  &__body {
+    flex-grow: 1;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__actions {
+    padding-block: 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  &__url {
+    flex-grow: 1;
+  }
+
+  &__cm {
+    flex: 1;
+  }
+
+  &__request {
+    flex: 1 0 50%;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__graph {
+    flex: 1 0 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__var {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__response {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+  }
+}
