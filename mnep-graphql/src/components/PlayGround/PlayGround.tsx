@@ -5,6 +5,7 @@ import { graphql } from 'cm6-graphql';
 import { EditorView } from '@codemirror/view';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { format } from '../../utils/formatGraphQL';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 
 
 const PlayGround = (): JSX.Element => {
@@ -57,44 +58,83 @@ const PlayGround = (): JSX.Element => {
                                                                 onChange={(e) => setUri(e.target.value)}/>
       </div>
 
-      <div className={styles.playground__body}>
-
-        <div className={styles.playground__request}>
-          <div className={styles.playground__graph}>
-            <h2>GraphQL</h2>
-            <CodeMirror className={styles.playground__cm}
-                        theme={'dark'}
-                        value={graphRequest}
-                        height="100%"
-                        onChange={(value) => {
-                          setGraphRequest(value);
-                        }}
-                        extensions={[graphql(), EditorView.lineWrapping]}/>
-          </div>
-          <div className={styles.playground__var}>
-            <h2>Variables</h2>
-            <CodeMirror className={styles.playground__cm}
-                        value={variablesRequest}
-                        height="100%"
-                        onChange={(value) => {
-                          setVariablesRequest(value);
-                        }}
-                        extensions={[langs.json(), EditorView.lineWrapping]}
-                        theme={'dark'}/>
-          </div>
-        </div>
-
-        <div className={styles.playground__response}>
-          <h2>Response</h2>
+      <PanelGroup direction={'horizontal'} className={styles.playground__body}>
+        <Panel>
+          <PanelGroup direction={'vertical'}>
+            <Panel className={styles.playground__panel} collapsible defaultSize={50}>
+              <h2>GraphQL</h2>
+                <CodeMirror className={styles.playground__cm}
+                            theme={'dark'}
+                            value={graphRequest}
+                            height="100%"
+                            onChange={(value) => {
+                              setGraphRequest(value);
+                            }}
+                            extensions={[graphql() ,EditorView.lineWrapping]}/>
+            </Panel>
+            <PanelResizeHandle > {'||'} </PanelResizeHandle>
+            <Panel className={styles.playground__panel} collapsible defaultSize={50}>
+              <h2>Variables</h2>
+              <CodeMirror className={styles.playground__cm}
+                          value={variablesRequest}
+                          height="100%"
+                          onChange={(value) => {
+                            setVariablesRequest(value);
+                          }}
+                          extensions={[langs.json(), EditorView.lineWrapping]}
+                          theme={'dark'}/>
+            </Panel>
+          </PanelGroup>
+        </Panel>
+        <PanelResizeHandle > {'<>'} </PanelResizeHandle>
+        <Panel className={styles.playground__panel} collapsible defaultSize={30}>
           <CodeMirror className={styles.playground__cm}
                       theme={'dark'}
-                      height="auto"
-                      maxHeight="calc(100vh - 15.3rem)"
+                      height="100%"
                       value={jsonResponse}
                       extensions={[langs.json(), EditorView.lineWrapping]}
                       readOnly/>
-        </div>
-      </div>
+        </Panel>
+      </PanelGroup>
+
+      {/* <div className={styles.playground__body}> */}
+
+      {/*   <div className={styles.playground__request}> */}
+      {/*     <div className={styles.playground__graph}> */}
+      {/*       <h2>GraphQL</h2> */}
+      {/*       <CodeMirror className={styles.playground__cm} */}
+      {/*                   theme={'dark'} */}
+      {/*                   value={graphRequest} */}
+      {/*                   height="100%" */}
+      {/*                   onChange={(value) => { */}
+      {/*                     setGraphRequest(value); */}
+      {/*                   }} */}
+      {/*                   extensions={[graphql(), EditorView.lineWrapping]}/> */}
+      {/*     </div> */}
+      {/*     <div className={styles.playground__var}> */}
+      {/*       <h2>Variables</h2> */}
+      {/*       <CodeMirror className={styles.playground__cm} */}
+      {/*                   value={variablesRequest} */}
+      {/*                   height="100%" */}
+      {/*                   onChange={(value) => { */}
+      {/*                     setVariablesRequest(value); */}
+      {/*                   }} */}
+      {/*                   extensions={[langs.json(), EditorView.lineWrapping]} */}
+      {/*                   theme={'dark'}/> */}
+      {/*     </div> */}
+      {/*   </div> */}
+
+      {/*   <div className={styles.playground__response}> */}
+      {/*     <h2>Response</h2> */}
+      {/*     <CodeMirror className={styles.playground__cm} */}
+      {/*                 theme={'dark'} */}
+      {/*                 height="100%" */}
+      {/*                 maxHeight="calc(100vh - 15.3rem)" */}
+      {/*                 value={jsonResponse} */}
+      {/*                 extensions={[langs.json(), EditorView.lineWrapping]} */}
+      {/*                 readOnly/> */}
+      {/*   </div> */}
+      {/* </div> */}
     </div>
   );
 };

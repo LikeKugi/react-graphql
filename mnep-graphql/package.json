@@ -13,9 +13,10 @@
     "@codemirror/view": "^6.22.2",
     "@uiw/codemirror-extensions-langs": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
-    "cm6-graphql": "^0.0.12",
+    "cm6-graphql": "^0.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-resizable-panels": "^1.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
