@@ -6,11 +6,12 @@ import { EditorView } from '@codemirror/view';
 import { langs } from '@uiw/codemirror-extensions-langs';
 import { format } from '../../utils/formatGraphQL';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { defaultQuery } from '../../constants/defaultQuery';
 
 
 const PlayGround = (): JSX.Element => {
   const inputId = useId();
-  const [graphRequest, setGraphRequest] = useState('');
+  const [graphRequest, setGraphRequest] = useState(defaultQuery);
   const [variablesRequest, setVariablesRequest] = useState('');
   const [jsonResponse, setJsonResponse] = useState('');
   const [uri, setUri] = useState('https://rickandmortyapi.com/graphql');
@@ -33,9 +34,9 @@ const PlayGround = (): JSX.Element => {
   };
 
   const handlePrettify = () => {
-    setVariablesRequest(prevState => JSON.stringify(JSON.parse(prevState), null, 2))
+
     setGraphRequest(prevState => format(prevState))
-    setJsonResponse(prevState => JSON.stringify(JSON.parse(prevState), null, 2))
+
   }
 
   const disableFormat = () => {
